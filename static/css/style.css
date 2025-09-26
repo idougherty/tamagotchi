@@ -1,0 +1,106 @@
+@font-face {
+    font-family: "JetBrainsMono";
+    src: url("../fonts/JetBrainsMono-Regular.woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "JetBrainsMono";
+    src: url("../fonts/JetBrainsMono-Italic.woff2");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "JetBrainsMono";
+    src: url("../fonts/JetBrainsMono-Bold.woff2");
+    font-weight: bold;
+    font-style: normal;
+}
+
+body {
+    font-family: "JetBrainsMono", monospace;
+}
+
+.todo-input-row input {
+    font-family: inherit;
+    font-size: inherit;
+    font-style: italic;
+    border: none;
+    background: none;
+    width: 100%;
+}
+
+.todo-input-row input:focus {
+    outline: none;
+}
+
+.todo-table button {
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    background: none;
+    width: 100%;
+    width: 100%;
+}
+
+.todo-table button:hover {
+    cursor: pointer;
+}
+
+.complete-todo-button {
+    color: #4A6;
+}
+
+.delete-todo-button {
+    color: #A46;
+}
+
+.todo-table {
+    border-collapse: collapse;
+    max-width: 1400px;
+    width: 100%;
+    margin: 4rem auto;
+    display: block;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.todo-table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.todo-table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.todo-table tr {
+    width: 100%;
+}
+
+.todo-table td, th {
+    padding: 0.5rem;
+    width: 10ch;
+    white-space: nowrap;
+}
+
+.todo-table td:first-child, th:first-child {
+    width: 100%;
+    max-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.todo-table tr:nth-child(even){background-color: #f2f2f2;}
+
+.todo-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #9b63b8;
+    color: white;
+    position: sticky;
+    top: 0;
+}
