@@ -8,6 +8,8 @@ def submit_prompt(system_prompt, user_prompt = None):
     messages.append({ "role": "system", "content": system_prompt })
     if user_prompt is not None:
         messages.append({ "role": "user", "content": user_prompt })
+ 
+    print(system_prompt, user_prompt)
 
     response = chat(model=MODEL, messages=messages)
 

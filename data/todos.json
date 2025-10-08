@@ -4,55 +4,143 @@
         "message": "make a dentist appointment",
         "tag": "need_to_do",
         "date_added": "2025-09-01T10:41:46.498540",
-        "date_completed": null,
-        "completed": false
+        "date_completed": "2025-10-06T21:26:43.842854",
+        "completed": true
     },
     {
         "id": 2,
-        "message": "work on tamagotchi",
-        "tag": "want_to_do",
-        "date_added": "2025-09-01T10:41:58.026337",
-        "date_completed": "2025-09-10T18:01:31.463812",
+        "message": "go to work",
+        "tag": "need_to_do",
+        "date_added": "2025-10-02T17:27:20.340482",
+        "date_completed": "2025-10-02T17:27:24.093925",
         "completed": true
     },
     {
         "id": 3,
-        "message": "go climbing",
+        "message": "bike to work",
         "tag": "want_to_do",
-        "date_added": "2025-09-10T18:00:52.438773",
-        "date_completed": "2025-09-10T18:00:56.581205",
+        "date_added": "2025-10-02T17:28:40.395058",
+        "date_completed": "2025-10-02T17:28:47.850674",
         "completed": true
     },
     {
         "id": 4,
-        "message": "go climbing",
+        "message": "made risotto + chicken + broccoli for dinner",
         "tag": "want_to_do",
-        "date_added": "2025-09-22T21:39:22.046260",
-        "date_completed": "2025-09-22T21:39:30.391628",
+        "date_added": "2025-10-02T17:30:14.274586",
+        "date_completed": "2025-10-02T17:30:19.717167",
         "completed": true
     },
     {
         "id": 5,
-        "message": "go climbing",
+        "message": "eat arepas for dinner with etta",
         "tag": "want_to_do",
-        "date_added": "2025-09-22T21:41:01.978426",
-        "date_completed": "2025-09-22T21:41:04.644463",
+        "date_added": "2025-10-04T10:40:29.358906",
+        "date_completed": "2025-10-04T10:40:32.523339",
         "completed": true
     },
     {
         "id": 6,
-        "message": "go climbing",
-        "tag": "want_to_do",
-        "date_added": "2025-09-22T21:42:48.452031",
-        "date_completed": "2025-09-22T21:43:39.117672",
+        "message": "go to work",
+        "tag": "need_to_do",
+        "date_added": "2025-10-04T10:40:37.160304",
+        "date_completed": "2025-10-04T10:40:39.430370",
         "completed": true
     },
     {
         "id": 7,
-        "message": "go climbing",
+        "message": "watch conclave (movie) with etta",
         "tag": "want_to_do",
-        "date_added": "2025-09-22T21:46:04.069262",
-        "date_completed": "2025-09-22T21:46:06.194047",
+        "date_added": "2025-10-04T10:40:54.638729",
+        "date_completed": "2025-10-04T10:40:56.814982",
+        "completed": true
+    },
+    {
+        "id": 8,
+        "message": "get tea at qahwah house with samantha, samuel, & etta",
+        "tag": "want_to_do",
+        "date_added": "2025-10-05T21:22:13.728131",
+        "date_completed": "2025-10-05T21:27:34.204273",
+        "completed": true
+    },
+    {
+        "id": 9,
+        "message": "hang out with grandma & bingo",
+        "tag": "want_to_do",
+        "date_added": "2025-10-05T21:22:28.203583",
+        "date_completed": "2025-10-05T21:27:41.837369",
+        "completed": true
+    },
+    {
+        "id": 10,
+        "message": "go climbing at arlington heights",
+        "tag": "want_to_do",
+        "date_added": "2025-10-05T21:23:00.702865",
+        "date_completed": "2025-10-05T21:27:47.160749",
+        "completed": true
+    },
+    {
+        "id": 11,
+        "message": "eat fancy matcha mochi from mitsuwa market",
+        "tag": "want_to_do",
+        "date_added": "2025-10-05T21:23:37.588486",
+        "date_completed": "2025-10-05T21:27:51.737342",
+        "completed": true
+    },
+    {
+        "id": 12,
+        "message": "grill spicy shrimp for taco dinner",
+        "tag": "want_to_do",
+        "date_added": "2025-10-05T21:26:24.179064",
+        "date_completed": "2025-10-05T21:28:03.456858",
+        "completed": true
+    },
+    {
+        "id": 13,
+        "message": "play hollow knight silk song (beat 2 bosses)",
+        "tag": "want_to_do",
+        "date_added": "2025-10-05T21:27:05.664842",
+        "date_completed": "2025-10-05T21:28:08.851889",
+        "completed": true
+    },
+    {
+        "id": 14,
+        "message": "make facebook marketplace listings to prep for moving",
+        "tag": "need_to_do",
+        "date_added": "2025-10-05T21:27:24.102724",
+        "date_completed": "2025-10-05T21:27:27.444400",
+        "completed": true
+    },
+    {
+        "id": 15,
+        "message": "go to work (worked on hosting text-to-sql project)",
+        "tag": "need_to_do",
+        "date_added": "2025-10-06T21:26:39.894906",
+        "date_completed": "2025-10-06T21:26:51.062437",
+        "completed": true
+    },
+    {
+        "id": 16,
+        "message": "hang out at liams apartment chatting & drinking chai",
+        "tag": "want_to_do",
+        "date_added": "2025-10-06T21:27:27.992994",
+        "date_completed": "2025-10-06T21:27:48.217925",
+        "completed": true
+    },
+    {
+        "id": 17,
+        "message": "climbing with liam and randall and calvin",
+        "tag": "want_to_do",
+        "date_added": "2025-10-06T21:27:45.475699",
+        "date_completed": "2025-10-06T21:27:50.087814",
+        "completed": true
+    },
+    {
+        "id": 18,
+        "message": "biked to work",
+        "tag": "want_to_do",
+        "date_added": "2025-10-06T21:28:20.141894",
+        "date_completed": "2025-10-06T21:28:22.516514",
         "completed": true
     }
 ]

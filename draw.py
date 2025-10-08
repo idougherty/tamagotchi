@@ -54,9 +54,9 @@ def render_tamagotchi(tamagotchi, sprite_path, quote):
     draw = ImageDraw.Draw(im)
 
     pos_y = 20
-    draw_text(draw, font, f"mind: {math.ceil(tamagotchi.mind)}/{MAX_VALUE}", MARGIN, MARGIN + 0 * font_size)
-    draw_text(draw, font, f"body: {math.ceil(tamagotchi.body)}/{MAX_VALUE}", MARGIN, MARGIN + 1 * font_size)
-    draw_text(draw, font, f"soul: {math.ceil(tamagotchi.soul)}/{MAX_VALUE}", MARGIN, MARGIN + 2 * font_size)
+    draw_text(draw, font, f"mind: {round(tamagotchi.mind)}/{MAX_VALUE}", MARGIN, MARGIN + 0 * font_size)
+    draw_text(draw, font, f"body: {round(tamagotchi.body)}/{MAX_VALUE}", MARGIN, MARGIN + 1 * font_size)
+    draw_text(draw, font, f"soul: {round(tamagotchi.soul)}/{MAX_VALUE}", MARGIN, MARGIN + 2 * font_size)
 
     draw_text(draw, font, f"care: {tamagotchi.get_care_grade()}", SCREEN_W // 2 + MARGIN, MARGIN + 0 * font_size)
     draw_text(draw, font, f"age: {tamagotchi.age}", SCREEN_W // 2 + MARGIN, MARGIN + 1 * font_size)
@@ -74,13 +74,14 @@ def render_tamagotchi(tamagotchi, sprite_path, quote):
 
     return im
 
-t = Tamagotchi()
-t.mind = random.random() * 8
-t.body = random.random() * 8
-t.soul = random.random() * 8
-t.age = int(random.random() * 30)
-t.care_score = random.random()
-sprite = f"images/{t.get_sprite()}.png"
-quote = t.generate_quote()
-im = render_tamagotchi(t, sprite, quote)
-im.show()
+if __name__ == "__main__":
+    t = Tamagotchi()
+    t.mind = random.random() * 8
+    t.body = random.random() * 8
+    t.soul = random.random() * 8
+    t.age = int(random.random() * 30)
+    t.care_score = random.random()
+    sprite = t.get_sprite()
+    quote = t.generate_quote()
+    im = render_tamagotchi(t, sprite, quote)
+    im.show()

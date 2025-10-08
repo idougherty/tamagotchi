@@ -1,9 +1,11 @@
 from threading import Thread
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from datetime import datetime
 from utils import read_json, write_json
 from tamagotchi import Tamagotchi
+from draw import render_tamagotchi
+import io
 
 TODO_JSON_PATH = "data/todos.json"
 todos = [];
@@ -105,6 +107,19 @@ def handle_submit_todo():
 @app.route('/api/get_todos')
 def handle_get_todos():
     return jsonify(todos), 200
+
+@app.route('/api/tamagotchi_image')
+def handle_tamagotchi_image():
+    tamagotchi.update()
+    sprite = tamagotchi.get_sprite()
+    quote = tamagotchi.generate_quote()
+    img = render_tamagotchi(tamagotchi, sprite, quote)
+
+    img_io = io.BytesIO()
+    img.save(img_io, 'PNG')
+    img_io.seek(0)
+
+    return send_file(img_io, mimetype='image/png')
 
 if __name__ == "__main__":
     tamagotchi = Tamagotchi()

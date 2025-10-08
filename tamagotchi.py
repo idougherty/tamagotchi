@@ -6,7 +6,7 @@ import re
 from ollama import chat
 from utils import read_json, write_json
 from llm import submit_prompt
-from mappings import mood_mappings, froggy_mappings
+from mappings import mood_mappings, froggy_mappings, SPRITE_DIR
 
 TAMAGOTCHI_JSON_PATH = "data/tamagotchi.json"
 STAT_MAX_VAL = 8
@@ -75,11 +75,11 @@ class Tamagotchi:
     def get_care_grade(self):
         grades = ["A", "B", "C", "D", "F"]
         modifiers = ["+", "", "-"]
-        grade_span = 0.2
+        grade_span = 0.15
 
         grade_idx = int((1 - self.care_score) / grade_span)
         modifier_idx = (1 - self.care_score) % grade_span
-        modifier_idx = int(modifier_idx * 3 / grade_span)
+        modifier_idx = min(int(modifier_idx * 3 / grade_span), len(modifiers) - 1)
 
         if grade_idx >= len(grades):
             grade_idx = len(grades) - 1
@@ -222,25 +222,46 @@ class Tamagotchi:
         time = datetime.now().strftime("%I:%M%p %A, %B %d, %Y")
 
         choices = [
-            { "name": "mind", "value": self.mind, "desc": "a measure of smartness" },
-            { "name": "body", "value": self.body, "desc": "a measure of health" },
-            { "name": "soul", "value": self.soul, "desc": "a measure of well-being" },
+            {
+                "name": "mind",
+                "value": self.mind,
+                "desc": "a measure of smartness",
+                "mood": self.get_closest_mood(mood_mappings["mind"], self.mind),
+            },
+            {
+                "name": "body",
+                "value": self.body,
+                "desc": "a measure of health",
+                "mood": self.get_closest_mood(mood_mappings["body"], self.body),
+            },
+            {
+                "name": "soul",
+                "value": self.soul,
+                "desc": "a measure of well-being",
+                "mood": self.get_closest_mood(mood_mappings["soul"], self.soul),
+            },
         ]
         stat = random.choice(choices)
         modifiers = ["low", "medium", "high"]
-        mod_idx = int(stat["value"] / STAT_MAX_VAL * 3)
+        mod_idx = min(int(stat["value"] / STAT_MAX_VAL * 3), 2)
         mod = modifiers[mod_idx]
 
         prompt = f"""
             You are a tamagotchi.
-            Your current mood is {self.get_mood()} which corresponds to a {mod} '{stat["name"]}' stat, {stat["desc"]}.
+            Your current mood is {stat["mood"]} which corresponds to a {mod} '{stat["name"]}' stat, {stat["desc"]}.
             Don't directly restate your mood. Try to let the context just subtly guide your response.
-            Keep the response as short as possible.
+            Your output should be an interesting thought indicating how you currently feel. Keep the response short.
             """
 
         return submit_prompt(prompt)
 
     def generate_quote(self):
+        if not self.is_alive:
+            death_date = self.birth_date + timedelta(days=self.age)
+            birth_str = self.birth_date.strftime("%m/%d/%y");
+            death_str = death_date.strftime("%m/%d/%y");
+            return f"Rest in peace.\n{birth_str}-{death_str}"
+
         return self.mood_quote()
 
     def get_sprite(self):
@@ -248,7 +269,10 @@ class Tamagotchi:
 
         care_score = self.get_care_score() 
         vals = ["negative", "neutral", "positive"]
-        idx = int(care_score * 3)
+        idx = min(int(care_score * 3), 2)
+
+        if not self.is_alive:
+            return f"{SPRITE_DIR}/grave.png"
  
-        return random.choice(self.sprite_mappings[vals[idx]])
+        return f"{SPRITE_DIR}/{random.choice(self.sprite_mappings[vals[idx]])}"
 
