@@ -5,6 +5,7 @@ from datetime import datetime
 from utils import read_json, write_json
 from tamagotchi import Tamagotchi
 from draw import render_tamagotchi
+import argparse
 import io
 
 TODO_JSON_PATH = "data/todos.json"
@@ -122,7 +123,14 @@ def handle_tamagotchi_image():
     return send_file(img_io, mimetype='image/png')
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--draw", action="store_true")
+    args = parser.parse_args()
+
     tamagotchi = Tamagotchi()
+
+    if args.draw:
+        from render_loop import launch_render_loop
+        launch_render_loop(tamagotchi)
+
     app.run(debug=True)
-
-

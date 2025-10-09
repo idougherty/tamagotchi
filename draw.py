@@ -4,6 +4,7 @@ import os
 import random
 import math
 from tamagotchi import Tamagotchi
+from mappings import get_current_action
 
 MAX_VALUE = 8
 SCREEN_W = 480
@@ -36,20 +37,40 @@ def wrap_text(text: str, font: ImageFont.ImageFont,
             lines.append(word)
     return '\n'.join(lines)
 
-def render_tamagotchi(tamagotchi, sprite_path, quote):
+def scale_sprite(sprite, scale):
+    sprite_w, sprite_h = sprite.size
+    sprite_w *= scale
+    sprite_h *= scale
+    return sprite.resize((sprite_w, sprite_h), resample=Image.NEAREST)
+
+def render_tamagotchi(tamagotchi, sprite_primary_path, sprite_secondary_path, quote):
     font_size = 50
     font = ImageFont.truetype("./static/fonts/Tiny5-Regular.ttf", font_size)
 
     sprite_scale = 15
-    sprite = Image.open(sprite_path)
-    sprite_w, sprite_h = sprite.size
-    sprite_w *= sprite_scale
-    sprite_h *= sprite_scale
-    sprite = sprite.resize((sprite_w, sprite_h), resample=Image.NEAREST)
+
+    sprite_primary = Image.open(sprite_primary_path)
+    sprite_primary = scale_sprite(sprite_primary, sprite_scale)
+
+    if sprite_secondary_path is not None:
+        sprite_secondary = Image.open(sprite_secondary_path)
+        sprite_secondary = scale_sprite(sprite_secondary, sprite_scale)
 
     im = Image.new(mode="RGB", size=(SCREEN_W, SCREEN_H), color=(255, 255, 255))
-    sprite_pos = (SPRITE_X - sprite_w // 2, SPRITE_Y - sprite_h // 2)
-    im.paste(sprite, sprite_pos) 
+
+    primary_w, primary_h = sprite_primary.size
+    if sprite_secondary_path is None:
+        primary_pos = (SPRITE_X - primary_w // 2, SPRITE_Y - primary_h // 2)
+        im.paste(sprite_primary, primary_pos) 
+    else:
+        secondary_w, secondary_h = sprite_secondary.size
+        spacing = (primary_w + secondary_w) // 2 + 20
+        secondary_y = SPRITE_Y + primary_h // 2 - secondary_h
+
+        primary_pos = (SPRITE_X - spacing // 2 - primary_w // 2, SPRITE_Y - primary_h // 2)
+        secondary_pos = (SPRITE_X + spacing // 2 - secondary_w // 2, secondary_y)
+        im.paste(sprite_primary, primary_pos) 
+        im.paste(sprite_secondary, secondary_pos) 
 
     draw = ImageDraw.Draw(im)
 
@@ -82,6 +103,10 @@ if __name__ == "__main__":
     t.age = int(random.random() * 30)
     t.care_score = random.random()
     sprite = t.get_sprite()
-    quote = t.generate_quote()
-    im = render_tamagotchi(t, sprite, quote)
+    quote = "Testing..."#t.generate_quote()
+    now = datetime.now()
+    now = now.replace(hour=random.randint(0,23), minute=random.randint(0, 59))
+    print(now)
+    print(get_current_action(now))
+    im = render_tamagotchi(t, sprite, "images/rice-2.png", quote)
     im.show()

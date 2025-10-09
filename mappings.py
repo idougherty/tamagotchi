@@ -79,7 +79,7 @@ def get_current_action(now):
         {
             "action": "pooping",
             "sprite_primary": None,
-            "sprite_secondary": SpriteMappingFixed("poop.png"),
+            "sprite_secondary": SpriteMappingRandom(["poop-1.png", "poop-2.png"]),
             "start_time": time(hour=9, minute=00),
             "end_time": time(hour=9, minute=10),
         },
@@ -207,7 +207,3 @@ froggy_mappings = {
     ]
 }
 
-now = datetime.now()
-now = now.replace(hour=random.randint(0,23), minute=random.randint(0, 59))
-print(now)
-print(get_current_action(now))
