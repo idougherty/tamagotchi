@@ -37,7 +37,7 @@ food_sprites = [
 ]
 
 def get_current_action(now):
-    random.seed(get_days_since_epoch(now))
+    rng = random.Random(get_days_since_epoch(now))
 
     breakfast_start = time(hour=8, minute=00)
     breakfast_end = time(hour=8, minute=15)
@@ -57,21 +57,21 @@ def get_current_action(now):
         {
             "action": "eating breakfast",
             "sprite_primary": None,
-            "sprite_secondary": SpriteMappingProgression(random.choice(food_sprites), breakfast_start, breakfast_end),
+            "sprite_secondary": SpriteMappingProgression(rng.choice(food_sprites), breakfast_start, breakfast_end),
             "start_time": breakfast_start,
             "end_time": breakfast_end,
         },
         {
             "action": "eating lunch",
             "sprite_primary": None,
-            "sprite_secondary": SpriteMappingProgression(random.choice(food_sprites), lunch_start, lunch_end),
+            "sprite_secondary": SpriteMappingProgression(rng.choice(food_sprites), lunch_start, lunch_end),
             "start_time": lunch_start,
             "end_time": lunch_end,
         },
         {
             "action": "eating dinner",
             "sprite_primary": None,
-            "sprite_secondary": SpriteMappingProgression(random.choice(food_sprites), dinner_start, dinner_end),
+            "sprite_secondary": SpriteMappingProgression(rng.choice(food_sprites), dinner_start, dinner_end),
             "start_time": dinner_start,
             "end_time": dinner_end,
         },
