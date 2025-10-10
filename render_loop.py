@@ -24,14 +24,7 @@ def launch_render_loop():
     def render(epd):
         tamagotchi = Tamagotchi()
         tamagotchi.update(persist=False)
-        sprite = tamagotchi.get_sprite()
-        quote = tamagotchi.generate_quote()
-        now = datetime.now()
-        print(now)
-        action = get_current_action(now)
-        print(action)
-        im = render_tamagotchi(tamagotchi, sprite, None, quote)
-        # im.show()
+        im = tamagotchi.generate_image()
         epd.display(epd.getbuffer(im))
 
     def launch():
