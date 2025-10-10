@@ -6,7 +6,8 @@ import re
 from ollama import chat
 from utils import read_json, write_json
 from llm import submit_prompt
-from mappings import mood_mappings, froggy_mappings, SPRITE_DIR
+from mappings import get_current_action, mood_mappings, froggy_mappings, SPRITE_DIR
+from draw import render_tamagotchi
 
 TAMAGOTCHI_JSON_PATH = "data/tamagotchi.json"
 STAT_MAX_VAL = 8
@@ -97,14 +98,23 @@ class Tamagotchi:
 
     def task_to_mood(self, task):
         system_prompt = """
-            You are an agent that excels at choosing whether a user submitted task falls into one of three buckets: mind, body, or soul.
-            'mind' bucket: tasks that are positive for one's brain and require thought. Commonly a task one needs to do. Like working on a project or planning one's future.
-            'body' bucket: tasks that are positive for one's health. Going to the gym, a bike ride, stretching all fall into this bucket.
-            'soul' bucket: tasks that are positive for one's deep well being. Commonly a task one wants to do. Spending time with family or friends, going to an event, being in nature.
+            You are an agent that excels at choosing which buckets a user submitted task falls into: mind, body, or soul.
+            'mind' bucket: Tasks that require a lot of thought. Commonly a task one needs to do. Like working on a project or planning one's future.
+            'body' bucket: Tasks that are positive for one's health. Going to the gym, a bike ride, stretching all fall into this bucket.
+            'soul' bucket: Tasks that are positive for one's deep well being, peace of mind, happiness. Commonly a task one wants to do. Spending time with family or friends, going to an event, being in nature.
 
-            Do not put a task into the body bucket purely because it involves physical activity, only if it is a type of working out.
-            Respond with exactly one word 'mind', 'body', or 'soul'.
+            Respond with a list of buckets for the user's task: 'mind', 'body', or 'soul'.
+
+            Examples:
+            Climbing with a group of friends: body soul
+            Coding a personal project: mind soul
+            Planning a doctor's visit: mind
+            Coding for work: mind
+            Going to class: mind
+            Eating with a group of friends: soul
+            Playing a video game: soul
             """
+            #Do not put a task into the body bucket purely because it involves physical activity, only if it is a type of working out.
 
         answer = None
         try:
@@ -223,7 +233,7 @@ class Tamagotchi:
 
         return random.choice(candidates)
 
-    def mood_quote(self):
+    def mood_quote(self, mood = None):
         time = datetime.now().strftime("%I:%M%p %A, %B %d, %Y")
 
         choices = [
@@ -246,7 +256,12 @@ class Tamagotchi:
                 "mood": self.get_closest_mood(mood_mappings["soul"], self.soul),
             },
         ]
-        stat = random.choice(choices)
+
+        if mood is None:
+            stat = random.choice(choices)
+        else:
+            stat = next((x for x in choices if x["name"] == mood), None)
+
         modifiers = ["low", "medium", "high"]
         mod_idx = min(int(stat["value"] / STAT_MAX_VAL * 3), 2)
         mod = modifiers[mod_idx]
@@ -263,24 +278,53 @@ class Tamagotchi:
 
         return submit_prompt(system_prompt, user_prompt)
 
-    def generate_quote(self):
+    def generate_quote(self, mood = None):
         if not self.is_alive:
             death_date = self.birth_date + timedelta(days=self.age)
             birth_str = self.birth_date.strftime("%m/%d/%y");
             death_str = death_date.strftime("%m/%d/%y");
             return f"Rest in peace.\n{birth_str}-{death_str}"
 
-        return self.mood_quote()
+        return self.mood_quote(mood)
 
-    def get_sprite(self):
+    def generate_image(self):
+        moods = ["mind", "body", "soul"]
+        mood = random.choice(moods)
+        quote = self.generate_quote(mood)
+        primary, secondary = self.get_sprite(mood)
+
+        return render_tamagotchi(self, primary, secondary, quote)
+
+    def get_sprite(self, mood = None):
+        if not self.is_alive:
+            return f"{SPRITE_DIR}/grave.png", None
+
+        now = datetime.now()
+        action = get_current_action(now)
+        if action is not None:
+            primary = action["sprite_primary"]
+            secondary = action["sprite_secondary"]
+
+            primary_sprite = primary.get_sprite() if primary is not None else self.get_mood_sprite(mood)
+            secondary_sprite = secondary.get_sprite if secondary is not None else None
+
+            return primary_sprite, secondary_sprite
+
+        return self.get_mood_sprite(mood), None
+
+    def get_mood_sprite(self, mood = None):
         self.sprite_mappings = froggy_mappings
 
-        care_score = self.get_care_score() 
-        vals = ["negative", "neutral", "positive"]
-        idx = min(int(care_score * 3), 2)
+        stat = self.get_care_score()
+        if mood == "mind":
+            stat = self.mind / STAT_MAX_VAL
+        if mood == "body":
+            stat = self.body / STAT_MAX_VAL
+        if mood == "soul":
+            stat = self.soul / STAT_MAX_VAL
 
-        if not self.is_alive:
-            return f"{SPRITE_DIR}/grave.png"
+        vals = ["negative", "neutral", "positive"]
+        idx = min(int(stat * 3), 2)
  
         return f"{SPRITE_DIR}/{random.choice(self.sprite_mappings[vals[idx]])}"
 
@@ -292,5 +336,9 @@ if __name__ == "__main__":
     # print(t.task_to_mood("biked to work"))
     # print(t.task_to_mood("went to work (coded all day)"))
 
-    print(t.generate_quote())
+    # print(t.mood_quote("mind"))
+    # print(t.mood_quote("body"))
+    # print(t.mood_quote("soul"))
 
+    im = t.generate_image()
+    im.show()

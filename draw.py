@@ -3,8 +3,6 @@ from datetime import datetime
 import os
 import random
 import math
-from tamagotchi import Tamagotchi
-from mappings import get_current_action
 
 MAX_VALUE = 8
 SCREEN_W = 480
@@ -96,6 +94,8 @@ def render_tamagotchi(tamagotchi, sprite_primary_path, sprite_secondary_path, qu
     return im
 
 if __name__ == "__main__":
+    from tamagotchi import Tamagotchi
+    from mappings import get_current_action
     t = Tamagotchi()
     t.mind = random.random() * 8
     t.body = random.random() * 8

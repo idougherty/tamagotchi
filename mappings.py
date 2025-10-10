@@ -38,7 +38,7 @@ food_sprites = [
 ]
 
 def get_current_action(now):
-    random.seed(get_days_since_epoch())
+    random.seed(get_days_since_epoch(now))
 
     breakfast_start = time(hour=8, minute=00)
     breakfast_end = time(hour=8, minute=15)
@@ -99,8 +99,7 @@ def get_current_action(now):
     return curr_action
 
 
-def get_days_since_epoch():
-    now = datetime.now()
+def get_days_since_epoch(now):
     epoch = datetime(1970, 1, 1)
     days_since_epoch = (now - epoch).days
 
