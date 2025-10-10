@@ -19,12 +19,14 @@ def minute_loop(func, arg):
             timeout = max(timeout, 0)
             time.sleep(timeout)
 
-def launch_render_loop(tamagotchi):
+def launch_render_loop():
 
     def render(epd):
-        now = datetime.now()
+        tamagotchi = Tamagotchi()
+        tamagotchi.update(persist=False)
         sprite = tamagotchi.get_sprite()
-        quote = "Testing..."#tamagotchi.generate_quote()
+        quote = tamagotchi.generate_quote()
+        now = datetime.now()
         print(now)
         action = get_current_action(now)
         print(action)

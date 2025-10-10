@@ -1,0 +1,6 @@
+FROM hf.co/bartowski/Qwen_Qwen3-0.6B-GGUF:Q4_K_M
+PARAMETER num_ctx 256
+PARAMETER num_batch 64
+PARAMETER num_thread 2
+PARAMETER num_predict 128
+SYSTEM You are a helpful assistant. Answer directly and concisely without showing your reasoning process.

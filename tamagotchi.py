@@ -98,15 +98,19 @@ class Tamagotchi:
     def task_to_mood(self, task):
         system_prompt = """
             You are an agent that excels at choosing whether a user submitted task falls into one of three buckets: mind, body, or soul.
-            'mind' bucket: tasks that are positive for one's brain and require thought. Like working on a project or planning one's future.
+            'mind' bucket: tasks that are positive for one's brain and require thought. Commonly a task one needs to do. Like working on a project or planning one's future.
             'body' bucket: tasks that are positive for one's health. Going to the gym, a bike ride, stretching all fall into this bucket.
-            'soul' bucket: tasks that are positive for one's deep well being. Spending time with family or friends, going to an event, being in nature.
+            'soul' bucket: tasks that are positive for one's deep well being. Commonly a task one wants to do. Spending time with family or friends, going to an event, being in nature.
 
             Do not put a task into the body bucket purely because it involves physical activity, only if it is a type of working out.
             Respond with exactly one word 'mind', 'body', or 'soul'.
             """
 
-        answer = submit_prompt(system_prompt, task)
+        answer = None
+        try:
+            answer = submit_prompt(system_prompt, task)
+        except Exception as e:
+            print(f"Couldn't gen response: {e}")
 
         if "mind" in answer:
             return "mind"
@@ -131,7 +135,7 @@ class Tamagotchi:
         else:
             raise Exception(f"no mood found for {mood}")
 
-    def update(self, task = None):
+    def update(self, task = None, persist = True):
         update_time = datetime.now()
         self.update_stats(update_time)
  
@@ -139,7 +143,8 @@ class Tamagotchi:
                 self.score_task(task)
 
         self.print_state()
-        self.write_to_json()
+        if persist:
+            self.write_to_json()
 
     def update_stats(self, now):
 
@@ -246,14 +251,17 @@ class Tamagotchi:
         mod_idx = min(int(stat["value"] / STAT_MAX_VAL * 3), 2)
         mod = modifiers[mod_idx]
 
-        prompt = f"""
+        system_prompt = f"""
             You are a tamagotchi.
-            Your current mood is {stat["mood"]} which corresponds to a {mod} '{stat["name"]}' stat, {stat["desc"]}.
             Don't directly restate your mood. Try to let the context just subtly guide your response.
             Your output should be an interesting thought indicating how you currently feel. Keep the response short.
             """
+        
+        user_prompt = f"""
+            Your current mood is {stat["mood"]} which corresponds to a {mod} '{stat["name"]}' stat, {stat["desc"]}.
+        """
 
-        return submit_prompt(prompt)
+        return submit_prompt(system_prompt, user_prompt)
 
     def generate_quote(self):
         if not self.is_alive:
@@ -275,4 +283,14 @@ class Tamagotchi:
             return f"{SPRITE_DIR}/grave.png"
  
         return f"{SPRITE_DIR}/{random.choice(self.sprite_mappings[vals[idx]])}"
+
+if __name__ == "__main__":
+    t = Tamagotchi()
+
+    # print(t.task_to_mood("meditated for 15 minutes"))
+    # print(t.task_to_mood("went on a sushi date with etta"))
+    # print(t.task_to_mood("biked to work"))
+    # print(t.task_to_mood("went to work (coded all day)"))
+
+    print(t.generate_quote())
 

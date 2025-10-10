@@ -30,7 +30,7 @@ def get_id():
     return next_id
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:8080", "http://127.0.0.1:8080"])
+CORS(app)
 
 @app.route('/api/complete_todo', methods=['POST'])
 def handle_complete_todo():
@@ -131,6 +131,6 @@ if __name__ == "__main__":
 
     if args.draw:
         from render_loop import launch_render_loop
-        launch_render_loop(tamagotchi)
+        launch_render_loop()
 
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)

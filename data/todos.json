@@ -142,5 +142,69 @@
         "date_added": "2025-10-06T21:28:20.141894",
         "date_completed": "2025-10-06T21:28:22.516514",
         "completed": true
+    },
+    {
+        "id": 19,
+        "message": "go to work (coded all day)",
+        "tag": "need_to_do",
+        "date_added": "2025-10-09T21:08:42.872820",
+        "date_completed": "2025-10-09T21:08:50.281392",
+        "completed": true
+    },
+    {
+        "id": 20,
+        "message": "go to work (coded all day)",
+        "tag": "need_to_do",
+        "date_added": "2025-10-10T09:13:56.312520",
+        "date_completed": "2025-10-10T09:35:49.956135",
+        "completed": true
+    },
+    {
+        "id": 21,
+        "message": "biked to work",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T09:14:08.376029",
+        "date_completed": "2025-10-10T09:37:31.982139",
+        "completed": true
+    },
+    {
+        "id": 22,
+        "message": "went climbing with etta, topped 2 v6s",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T09:14:35.418174",
+        "date_completed": "2025-10-10T09:39:32.810694",
+        "completed": true
+    },
+    {
+        "id": 23,
+        "message": "go to work (coded all day again)",
+        "tag": "need_to_do",
+        "date_added": "2025-10-10T09:15:52.669575",
+        "date_completed": "2025-10-10T09:20:56.788220",
+        "completed": true
+    },
+    {
+        "id": 24,
+        "message": "ate lunch at saucy porka. got the peurto rican rice bowl",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T09:16:19.441996",
+        "date_completed": "2025-10-10T09:39:37.724960",
+        "completed": true
+    },
+    {
+        "id": 25,
+        "message": "chatted with blake and liam over some chai",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T09:20:02.570656",
+        "date_completed": "2025-10-10T09:41:40.129256",
+        "completed": true
+    },
+    {
+        "id": 26,
+        "message": "happy hour with work folks",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T09:20:33.731936",
+        "date_completed": "2025-10-10T09:42:45.828801",
+        "completed": true
     }
 ]

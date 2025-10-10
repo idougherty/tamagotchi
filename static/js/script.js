@@ -73,7 +73,7 @@ async function refresh_todos() {
     render_todos(todos);
 }
 
-const tamagotchi_host = "http://localhost:5000"
+const tamagotchi_host = "http://192.168.0.23:5000"
 
 const need_to_do_table = document.getElementById("need_to_do_table");
 const want_to_do_table = document.getElementById("want_to_do_table");

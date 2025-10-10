@@ -1,13 +1,14 @@
 from ollama import chat
 import re
 
-MODEL = "hf.co/bartowski/Qwen_Qwen3-0.6B-GGUF:Q6_K"
+# MODEL = "hf.co/bartowski/Qwen_Qwen3-0.6B-GGUF:Q6_K"
+MODEL = "qwen-litest"
 
 def submit_prompt(system_prompt, user_prompt = None):
     messages = []
     messages.append({ "role": "system", "content": system_prompt })
     if user_prompt is not None:
-        messages.append({ "role": "user", "content": user_prompt })
+        messages.append({ "role": "user", "content": user_prompt + " /no_think" })
  
     print(system_prompt, user_prompt)
 
