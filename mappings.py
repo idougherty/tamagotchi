@@ -18,7 +18,6 @@ food_sprites = [
     [
         "cake-1.png",
         "cake-2.png",
-        "cake-3.png",
     ],
     [
         "candy-1.png",
@@ -102,6 +101,7 @@ def get_current_action(now):
 def get_days_since_epoch(now):
     epoch = datetime(1970, 1, 1)
     days_since_epoch = (now - epoch).days
+    return days_since_epoch
 
 class SpriteMappingBase(ABC):
     @abstractmethod
@@ -131,6 +131,8 @@ class SpriteMappingProgression(SpriteMappingBase):
     def get_sprite(self):
         # will not work overnight
         now = datetime.now()
+        start_time = datetime.combine(datetime.today(), self.start_time)
+        end_time = datetime.combine(datetime.today(), self.end_time)
         if now <= start_time:
             return self.sprites[0]
 

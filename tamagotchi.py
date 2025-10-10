@@ -293,11 +293,14 @@ class Tamagotchi:
         quote = self.generate_quote(mood)
         primary, secondary = self.get_sprite(mood)
 
-        return render_tamagotchi(self, primary, secondary, quote)
+        primary_path = f"{SPRITE_DIR}/{primary}"
+        secondary_path = f"{SPRITE_DIR}/{secondary}" if secondary is not None else None
+
+        return render_tamagotchi(self, primary_path, secondary_path, quote)
 
     def get_sprite(self, mood = None):
         if not self.is_alive:
-            return f"{SPRITE_DIR}/grave.png", None
+            return "grave.png", None
 
         now = datetime.now()
         action = get_current_action(now)
@@ -306,7 +309,7 @@ class Tamagotchi:
             secondary = action["sprite_secondary"]
 
             primary_sprite = primary.get_sprite() if primary is not None else self.get_mood_sprite(mood)
-            secondary_sprite = secondary.get_sprite if secondary is not None else None
+            secondary_sprite = secondary.get_sprite() if secondary is not None else None
 
             return primary_sprite, secondary_sprite
 
@@ -326,7 +329,7 @@ class Tamagotchi:
         vals = ["negative", "neutral", "positive"]
         idx = min(int(stat * 3), 2)
  
-        return f"{SPRITE_DIR}/{random.choice(self.sprite_mappings[vals[idx]])}"
+        return random.choice(self.sprite_mappings[vals[idx]])
 
 if __name__ == "__main__":
     t = Tamagotchi()
