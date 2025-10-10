@@ -30,7 +30,6 @@ def launch_render_loop(tamagotchi):
         print(action)
         im = render_tamagotchi(tamagotchi, sprite, None, quote)
         # im.show()
-        epd.init()
         epd.display(epd.getbuffer(im))
 
     def launch():
@@ -42,7 +41,10 @@ def launch_render_loop(tamagotchi):
             sys.path.append(libdir)
 	
         from waveshare_epd import epd3in97
+
         epd = epd3in97.EPD()
+        epd.init()
+        epd.Clear()
 
         minute_loop(render, epd)
 
