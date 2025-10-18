@@ -41,10 +41,8 @@ def submit_prompt(system_prompt, user_prompt = None, options = {}):
     cleaned_content = re.sub(r"<think>.*?</think>\n?", "", answer, flags=re.DOTALL).strip()
     answer = cleaned_content if cleaned_content else answer
 
-    # remove emojis
-    answer = strip_emojis(answer)
-
-    # remove quotes
-    answer = answer.strip('"')
+    answer = strip_emojis(answer)   # remove emojis
+        .strip('"')                 # remove quotes
+        .strip()                    # remove leading/trailing whitespace
 
     return answer
