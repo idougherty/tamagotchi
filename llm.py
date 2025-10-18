@@ -42,7 +42,7 @@ def submit_prompt(system_prompt, user_prompt = None, options = {}):
     answer = cleaned_content if cleaned_content else answer
 
     answer = strip_emojis(answer)   # remove emojis
-        .strip('"')                 # remove quotes
-        .strip()                    # remove leading/trailing whitespace
+    answer = answer.strip('"')      # remove quotes
+    answer = answer.strip()         # remove leading/trailing whitespace
 
     return answer
