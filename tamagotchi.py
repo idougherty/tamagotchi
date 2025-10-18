@@ -269,14 +269,19 @@ class Tamagotchi:
         system_prompt = f"""
             You are a tamagotchi.
             Don't directly restate your mood. Try to let the context just subtly guide your response.
-            Your output should be an interesting thought indicating how you currently feel. Keep the response short.
+            Your output should be an interesting thought indicating how you currently feel. Keep the response under 10 words.
             """
-        
+
         user_prompt = f"""
             Your current mood is {stat["mood"]} which corresponds to a {mod} '{stat["name"]}' stat, {stat["desc"]}.
         """
 
-        return submit_prompt(system_prompt, user_prompt)
+        options = {
+            # crank up the temperature for more creative responses
+            "temperature": 3.0
+        }
+
+        return submit_prompt(system_prompt, user_prompt, options=options)
 
     def generate_quote(self, mood = None):
         if not self.is_alive:
@@ -339,9 +344,9 @@ if __name__ == "__main__":
     # print(t.task_to_mood("biked to work"))
     # print(t.task_to_mood("went to work (coded all day)"))
 
-    # print(t.mood_quote("mind"))
-    # print(t.mood_quote("body"))
-    # print(t.mood_quote("soul"))
+    print(t.mood_quote("mind"))
+    print(t.mood_quote("body"))
+    print(t.mood_quote("soul"))
 
     im = t.generate_image()
     im.show()
