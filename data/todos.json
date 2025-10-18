@@ -1,13 +1,5 @@
 [
     {
-        "id": 1,
-        "message": "make a dentist appointment",
-        "tag": "need_to_do",
-        "date_added": "2025-09-01T10:41:46.498540",
-        "date_completed": "2025-10-06T21:26:43.842854",
-        "completed": true
-    },
-    {
         "id": 2,
         "message": "go to work",
         "tag": "need_to_do",
@@ -205,6 +197,334 @@
         "tag": "want_to_do",
         "date_added": "2025-10-10T09:20:33.731936",
         "date_completed": "2025-10-10T09:42:45.828801",
+        "completed": true
+    },
+    {
+        "id": 27,
+        "message": "work on 3k (coding project)",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T16:31:37.572170",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 28,
+        "message": "eat sushi with sam, xavier, liam, & etta",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T16:32:02.815868",
+        "date_completed": "2025-10-10T20:21:59.371107",
+        "completed": true
+    },
+    {
+        "id": 29,
+        "message": "work on 3d laptop portal (coding project)",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T16:32:30.514731",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 30,
+        "message": "read papers to prep for UBC start",
+        "tag": "need_to_do",
+        "date_added": "2025-10-10T16:33:06.558148",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 31,
+        "message": "bake banana bread",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T16:33:20.483119",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 32,
+        "message": "eat french toast",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T16:33:25.911521",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 33,
+        "message": "worked on tamagotchi (got it hosted on pi with e ink display)",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T22:02:25.003675",
+        "date_completed": "2025-10-10T22:02:27.063940",
+        "completed": true
+    },
+    {
+        "id": 34,
+        "message": "figure out banking for canada",
+        "tag": "need_to_do",
+        "date_added": "2025-10-10T22:04:47.777893",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 35,
+        "message": "work on tamagotchi project (fine tune inference settings)",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T22:05:30.501542",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 36,
+        "message": "work on tamagotchi project (custom prompts for actions)",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T22:05:51.368477",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 37,
+        "message": "work on tamagotchi project (add queue for acknowledging completed tasks)",
+        "tag": "want_to_do",
+        "date_added": "2025-10-10T22:06:28.922929",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 38,
+        "message": "make a dentist appointment",
+        "tag": "need_to_do",
+        "date_added": "2025-10-10T22:06:59.265000",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 39,
+        "message": "bike 100 miles with xavier, etta, and sam",
+        "tag": "want_to_do",
+        "date_added": "2025-10-12T11:01:04.307216",
+        "date_completed": "2025-10-12T11:01:06.945748",
+        "completed": true
+    },
+    {
+        "id": 40,
+        "message": "eat lunch in a veteran memorial island with sam, etta, and xavier",
+        "tag": "want_to_do",
+        "date_added": "2025-10-12T11:03:12.862789",
+        "date_completed": "2025-10-12T11:03:47.473068",
+        "completed": true
+    },
+    {
+        "id": 41,
+        "message": "watch '10 things i hate about you' with xavier and etta",
+        "tag": "want_to_do",
+        "date_added": "2025-10-12T11:03:43.137416",
+        "date_completed": "2025-10-12T11:03:50.277833",
+        "completed": true
+    },
+    {
+        "id": 42,
+        "message": "eat a huge burrito from los azares to recover from 100 mile bike",
+        "tag": "want_to_do",
+        "date_added": "2025-10-12T11:04:27.961557",
+        "date_completed": "2025-10-12T11:04:35.373199",
+        "completed": true
+    },
+    {
+        "id": 43,
+        "message": "go apple picking with mom & etta",
+        "tag": "want_to_do",
+        "date_added": "2025-10-13T08:36:46.322113",
+        "date_completed": "2025-10-13T08:37:23.914333",
+        "completed": true
+    },
+    {
+        "id": 44,
+        "message": "hang out with grandma and bingo",
+        "tag": "want_to_do",
+        "date_added": "2025-10-13T08:37:19.333551",
+        "date_completed": "2025-10-13T08:40:06.098529",
+        "completed": true
+    },
+    {
+        "id": 45,
+        "message": "go thrifting with etta for our halloween costumes",
+        "tag": "want_to_do",
+        "date_added": "2025-10-13T08:39:21.182467",
+        "date_completed": "2025-10-13T08:40:11.532477",
+        "completed": true
+    },
+    {
+        "id": 46,
+        "message": "eat dinner with sam, liam, alex, kat, & etta at vegan taco restaurant",
+        "tag": "want_to_do",
+        "date_added": "2025-10-13T08:39:58.164903",
+        "date_completed": "2025-10-13T08:40:08.207134",
+        "completed": true
+    },
+    {
+        "id": 47,
+        "message": "booked uhaul trailer for chicago -> vancouver move",
+        "tag": "need_to_do",
+        "date_added": "2025-10-13T09:52:47.357717",
+        "date_completed": "2025-10-13T09:53:50.641729",
+        "completed": true
+    },
+    {
+        "id": 48,
+        "message": "pick up estonian passport & id from winnetka",
+        "tag": "need_to_do",
+        "date_added": "2025-10-13T14:15:53.419092",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 49,
+        "message": "pot the monstera cutting",
+        "tag": "need_to_do",
+        "date_added": "2025-10-13T15:03:57.316977",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 50,
+        "message": "design an air plant holder for christmas gifts",
+        "tag": "want_to_do",
+        "date_added": "2025-10-13T15:06:17.446688",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 52,
+        "message": "bake an irish apple cake with etta",
+        "tag": "want_to_do",
+        "date_added": "2025-10-13T16:10:37.331380",
+        "date_completed": "2025-10-13T16:10:42.123610",
+        "completed": true
+    },
+    {
+        "id": 53,
+        "message": "went climbing with etta and sam",
+        "tag": "want_to_do",
+        "date_added": "2025-10-13T21:14:58.208514",
+        "date_completed": "2025-10-13T21:15:00.238999",
+        "completed": true
+    },
+    {
+        "id": 54,
+        "message": "go to work (refactor whole text-to-sql project)",
+        "tag": "want_to_do",
+        "date_added": "2025-10-15T20:16:52.463913",
+        "date_completed": "2025-10-15T20:16:59.827609",
+        "completed": true
+    },
+    {
+        "id": 55,
+        "message": "bike to work",
+        "tag": "want_to_do",
+        "date_added": "2025-10-15T20:17:06.470989",
+        "date_completed": "2025-10-15T20:17:08.837379",
+        "completed": true
+    },
+    {
+        "id": 56,
+        "message": "go climbing with liam, etta, blake, and sherry",
+        "tag": "want_to_do",
+        "date_added": "2025-10-15T20:17:37.365391",
+        "date_completed": "2025-10-15T20:20:24.488261",
+        "completed": true
+    },
+    {
+        "id": 57,
+        "message": "eat yummy fish dinner cooked by ms ingrid, along with irish apple cake for dessert",
+        "tag": "want_to_do",
+        "date_added": "2025-10-15T20:18:33.895182",
+        "date_completed": "2025-10-15T20:22:24.956916",
+        "completed": true
+    },
+    {
+        "id": 58,
+        "message": "eat lunch with etta in the rain in south loop",
+        "tag": "want_to_do",
+        "date_added": "2025-10-15T20:23:18.462907",
+        "date_completed": "2025-10-15T20:23:42.101845",
+        "completed": true
+    },
+    {
+        "id": 59,
+        "message": "bike to work",
+        "tag": "want_to_do",
+        "date_added": "2025-10-16T22:06:35.458093",
+        "date_completed": "2025-10-16T22:06:38.542694",
+        "completed": true
+    },
+    {
+        "id": 60,
+        "message": "go to work (spend all day refactoring text-to-sql project)",
+        "tag": "need_to_do",
+        "date_added": "2025-10-16T22:06:59.076861",
+        "date_completed": "2025-10-16T22:08:25.311294",
+        "completed": true
+    },
+    {
+        "id": 61,
+        "message": "eat lunch with liam & meena",
+        "tag": "want_to_do",
+        "date_added": "2025-10-16T22:09:21.906613",
+        "date_completed": "2025-10-16T22:11:00.221325",
+        "completed": true
+    },
+    {
+        "id": 62,
+        "message": "eat dinner after work with liam",
+        "tag": "want_to_do",
+        "date_added": "2025-10-16T22:09:34.242209",
+        "date_completed": "2025-10-16T22:12:34.885048",
+        "completed": true
+    },
+    {
+        "id": 63,
+        "message": "go to wine tasting at wine styles with etta, sam, sam, jackie, ing, liam, & kat",
+        "tag": "want_to_do",
+        "date_added": "2025-10-16T22:10:54.523017",
+        "date_completed": "2025-10-16T22:14:37.079019",
+        "completed": true
+    },
+    {
+        "id": 64,
+        "message": "order more contacts",
+        "tag": "need_to_do",
+        "date_added": "2025-10-17T15:12:01.237873",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 65,
+        "message": "go to work (finish big text-to-sql refactor & chat with stuart about departure)",
+        "tag": "need_to_do",
+        "date_added": "2025-10-17T21:54:23.303375",
+        "date_completed": "2025-10-17T21:54:26.310231",
+        "completed": true
+    },
+    {
+        "id": 66,
+        "message": "bike to first ascent and bench with etta",
+        "tag": "want_to_do",
+        "date_added": "2025-10-17T21:56:23.880219",
+        "date_completed": "2025-10-17T21:56:27.151098",
+        "completed": true
+    },
+    {
+        "id": 67,
+        "message": "eat sushi and play mahjong with etta, sam, and lily",
+        "tag": "want_to_do",
+        "date_added": "2025-10-17T21:57:01.244618",
+        "date_completed": "2025-10-17T21:59:16.193828",
+        "completed": true
+    },
+    {
+        "id": 68,
+        "message": "make myself french toast for breakfast since i have been craving it",
+        "tag": "want_to_do",
+        "date_added": "2025-10-17T21:57:46.288201",
+        "date_completed": "2025-10-17T22:01:26.308506",
         "completed": true
     }
 ]
