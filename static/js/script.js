@@ -43,6 +43,10 @@ function add_todo_row(id, tag, message, date_added) {
 function render_todos(data) {
     console.log(data);
 
+    data.sort((a, b) => 
+        new Date(b.date_completed ?? b.date_added).getTime() - 
+        new Date(a.date_completed ?? a.date_added).getTime());
+
     for (const todo of data) {
         let { id, tag, message, completed, date_added, date_completed } = todo;
         date_added = new Date(date_added).toDateString();
@@ -74,6 +78,7 @@ async function refresh_todos() {
 }
 
 const tamagotchi_host = "http://192.168.0.23:5000"
+// const tamagotchi_host = "http://localhost:5000"
 
 const need_to_do_table = document.getElementById("need_to_do_table");
 const want_to_do_table = document.getElementById("want_to_do_table");

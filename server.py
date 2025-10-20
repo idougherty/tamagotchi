@@ -1,14 +1,15 @@
-from threading import Thread
+import argparse
+import io
+import threading
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from datetime import datetime
+
 from utils import read_json, write_json
 from tamagotchi import Tamagotchi
 from draw import render_tamagotchi
-import argparse
-import io
+from constants import TODO_JSON_PATH, QUEUE_JSON_PATH
 
-TODO_JSON_PATH = "data/todos.json"
 todos = [];
 
 try:
@@ -32,6 +33,15 @@ def get_id():
 app = Flask(__name__)
 CORS(app)
 
+refresh_event = threading.Condition()
+
+@app.route('/api/force_refresh', methods=['POST'])
+def handle_force_refresh():
+    with refresh_event:
+        refresh_event.notify()
+    return jsonify({"message": "Refresh event notified."}), 200
+
+
 @app.route('/api/complete_todo', methods=['POST'])
 def handle_complete_todo():
     if not request.is_json:
@@ -54,8 +64,15 @@ def handle_complete_todo():
     todos[idx]["date_completed"] = datetime.now()
 
     write_json(todos, TODO_JSON_PATH);
-    thread = Thread(target=tamagotchi.update, args=(todos[idx]["message"],))
-    thread.start()
+
+    with refresh_event:
+        try:
+            queue = read_json(QUEUE_JSON_PATH)
+        except:
+            queue = []
+        queue.append(todos[idx]["message"])
+        write_json(queue, QUEUE_JSON_PATH)
+        refresh_event.notify()
 
     return jsonify({"message": "Success!"}), 201
 
@@ -109,6 +126,7 @@ def handle_submit_todo():
 def handle_get_todos():
     return jsonify(todos), 200
 
+
 @app.route('/api/tamagotchi_image')
 def handle_tamagotchi_image():
     tamagotchi.update()
@@ -122,15 +140,17 @@ def handle_tamagotchi_image():
 
     return send_file(img_io, mimetype='image/png')
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--draw", action="store_true")
+    parser.add_argument("--nodraw", action="store_true")
     args = parser.parse_args()
 
     tamagotchi = Tamagotchi()
 
-    if args.draw:
+    print(f"Starting server! nodraw={args.nodraw}")
+    if not args.nodraw:
         from render_loop import launch_render_loop
-        launch_render_loop()
+        launch_render_loop(refresh_event)
 
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=False, host="0.0.0.0", port=5000)

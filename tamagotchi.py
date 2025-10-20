@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, time, timedelta
 from time import sleep
 import math
 import random
@@ -6,12 +6,10 @@ import re
 from ollama import chat
 from utils import read_json, write_json
 from llm import submit_prompt
-from mappings import get_current_action, mood_mappings, froggy_mappings, SPRITE_DIR
+from mappings import mood_mappings, froggy_mappings, food_sprites
+from constants import SPRITE_DIR, TAMAGOTCHI_JSON_PATH, STAT_MAX_VAL, STAT_DECAY_RATE
 from draw import render_tamagotchi
-
-TAMAGOTCHI_JSON_PATH = "data/tamagotchi.json"
-STAT_MAX_VAL = 8
-STAT_DECAY_RATE = 1 # meaasured in units per day
+from actions import MoodAction, SleepAction, MealAction, PoopAction, DeathAction
 
 class Tamagotchi:
 
@@ -31,6 +29,7 @@ class Tamagotchi:
             self.birth_date = datetime.fromisoformat(data["birth_date"])
             self.last_update_time = datetime.fromisoformat(data["last_update_time"])
             self.is_alive = data["is_alive"]
+            self.sprite_mappings = froggy_mappings
  
         except Exception as e:
             print(f"Could not read {TAMAGOTCHI_JSON_PATH}: {e}")
@@ -69,6 +68,7 @@ class Tamagotchi:
         self.birth_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
         self.last_update_time = datetime.now()
         self.is_alive = True
+        self.sprite_mappings = froggy_mappings
 
     def get_care_score(self):
         return (self.mind + self.body + self.soul) / (3 * STAT_MAX_VAL)
@@ -212,129 +212,87 @@ class Tamagotchi:
         self.body = max(self.body, 0)
         self.soul = max(self.soul, 0)
 
-    def get_closest_mood(self, moods, stat_value):
-        best_mood = None
-        best_dist = math.inf 
-
-        for mood in moods:
-            dist = abs(mood["value"] - stat_value / STAT_MAX_VAL) 
-            if dist < best_dist:
-                best_dist = dist
-                best_mood = mood["name"]
-
-        return best_mood
-
-    def get_mood(self):
-        candidates = [
-            self.get_closest_mood(mood_mappings["mind"], self.mind),
-            self.get_closest_mood(mood_mappings["body"], self.body),
-            self.get_closest_mood(mood_mappings["soul"], self.soul),
-        ]
-
-        return random.choice(candidates)
-
-    def mood_quote(self, mood = None):
-        time = datetime.now().strftime("%I:%M%p %A, %B %d, %Y")
-
-        choices = [
-            {
-                "name": "mind",
-                "value": self.mind,
-                "desc": "a measure of smartness",
-                "mood": self.get_closest_mood(mood_mappings["mind"], self.mind),
-            },
-            {
-                "name": "body",
-                "value": self.body,
-                "desc": "a measure of health",
-                "mood": self.get_closest_mood(mood_mappings["body"], self.body),
-            },
-            {
-                "name": "soul",
-                "value": self.soul,
-                "desc": "a measure of well-being",
-                "mood": self.get_closest_mood(mood_mappings["soul"], self.soul),
-            },
-        ]
-
-        if mood is None:
-            stat = random.choice(choices)
-        else:
-            stat = next((x for x in choices if x["name"] == mood), None)
-
-        modifiers = ["low", "medium", "high"]
-        mod_idx = min(int(stat["value"] / STAT_MAX_VAL * 3), 2)
-        mod = modifiers[mod_idx]
-
-        system_prompt = f"""
-            You are a tamagotchi.
-            Don't directly restate your mood. Try to let the context just subtly guide your response.
-            Your output should be an interesting thought indicating how you currently feel. Keep the response under 10 words.
-            """
-
-        user_prompt = f"""
-            Your current mood is {stat["mood"]} which corresponds to a {mod} '{stat["name"]}' stat, {stat["desc"]}.
-        """
-
-        options = {
-            # crank up the temperature for more creative responses
-            "temperature": 3.0
-        }
-
-        return submit_prompt(system_prompt, user_prompt, options=options)
-
-    def generate_quote(self, mood = None):
-        if not self.is_alive:
-            death_date = self.birth_date + timedelta(days=self.age)
-            birth_str = self.birth_date.strftime("%m/%d/%y");
-            death_str = death_date.strftime("%m/%d/%y");
-            return f"Rest in peace.\n{birth_str}-{death_str}"
-
-        return self.mood_quote(mood)
-
-    def generate_image(self):
-        moods = ["mind", "body", "soul"]
-        mood = random.choice(moods)
-        quote = self.generate_quote(mood)
-        primary, secondary = self.get_sprite(mood)
+    def generate_image(self, action=None):
+        now = datetime.now()
+        action = action or self.get_current_action(now)
+        quote = action.generate_quote()
+        primary, secondary = action.get_sprites()
 
         primary_path = f"{SPRITE_DIR}/{primary}"
         secondary_path = f"{SPRITE_DIR}/{secondary}" if secondary is not None else None
 
         return render_tamagotchi(self, primary_path, secondary_path, quote)
 
-    def get_sprite(self, mood = None):
+    def get_current_action(self, now):
+
+        def get_days_since_epoch(now):
+            epoch = datetime(1970, 1, 1)
+            return (now - epoch).days
+
+        rng = random.Random(get_days_since_epoch(now))
+
+        sleep_start = time(hour=22, minute=00)
+        sleep_end = time(hour=7, minute=00)
+        breakfast_start = time(hour=8, minute=00)
+        breakfast_end = time(hour=8, minute=15)
+        lunch_start = time(hour=12, minute=00)
+        lunch_end = time(hour=12, minute=15)
+        dinner_start = time(hour=19, minute=00)
+        dinner_end = time(hour=19, minute=15)
+        poop_1_start = time(hour=rng.randint(7, 21), minute=rng.randint(0, 59))
+        poop_1_end = (datetime.combine(datetime.today(), poop_1_start) + timedelta(minutes=10)).time()
+        poop_2_start = time(hour=rng.randint(7, 21), minute=rng.randint(0, 59))
+        poop_2_end = (datetime.combine(datetime.today(), poop_2_start) + timedelta(minutes=10)).time()
+
+        schedule = [
+            {
+                "action": SleepAction(self),
+                "start_time": sleep_start,
+                "end_time": sleep_end,
+            },
+            {
+                "action": MealAction(self, "breakfast", rng.choice(food_sprites), breakfast_start, breakfast_end),
+                "start_time": breakfast_start,
+                "end_time": breakfast_end,
+            },
+            {
+                "action": MealAction(self, "lunch", rng.choice(food_sprites), lunch_start, lunch_end),
+                "start_time": lunch_start,
+                "end_time": lunch_end,
+            },
+            {
+                "action": MealAction(self, "dinner", rng.choice(food_sprites), dinner_start, dinner_end),
+                "start_time": dinner_start,
+                "end_time": dinner_end,
+            },
+            {
+                "action": PoopAction(self),
+                "start_time": poop_1_start,
+                "end_time": poop_1_end,
+            },
+            {
+                "action": PoopAction(self),
+                "start_time": poop_2_start,
+                "end_time": poop_2_end,
+            },
+        ]
+
         if not self.is_alive:
-            return "grave.png", None
+            return DeathAction(self)
 
-        now = datetime.now()
-        action = get_current_action(now)
-        if action is not None:
-            primary = action["sprite_primary"]
-            secondary = action["sprite_secondary"]
+        curr_action = MoodAction(self)
+        for action in schedule:
+            after_start = action["start_time"] < now.time()
+            before_end = action["end_time"] > now.time()
+            if action["start_time"] < action["end_time"] and after_start and before_end:
+                curr_action = action["action"]
+                break
+            elif action["end_time"] < action["start_time"] and (after_start or before_end):
+                curr_action = action["action"]
+                break
 
-            primary_sprite = primary.get_sprite() if primary is not None else self.get_mood_sprite(mood)
-            secondary_sprite = secondary.get_sprite() if secondary is not None else None
+        return curr_action
 
-            return primary_sprite, secondary_sprite
-
-        return self.get_mood_sprite(mood), None
-
-    def get_mood_sprite(self, mood = None):
-        self.sprite_mappings = froggy_mappings
-
-        stat = self.get_care_score()
-        if mood == "mind":
-            stat = self.mind / STAT_MAX_VAL
-        if mood == "body":
-            stat = self.body / STAT_MAX_VAL
-        if mood == "soul":
-            stat = self.soul / STAT_MAX_VAL
-
-        vals = ["negative", "neutral", "positive"]
-        idx = min(int(stat * 3), 2)
- 
-        return random.choice(self.sprite_mappings[vals[idx]])
 
 if __name__ == "__main__":
     t = Tamagotchi()
@@ -344,9 +302,9 @@ if __name__ == "__main__":
     # print(t.task_to_mood("biked to work"))
     # print(t.task_to_mood("went to work (coded all day)"))
 
-    print(t.mood_quote("mind"))
-    print(t.mood_quote("body"))
-    print(t.mood_quote("soul"))
+    # print(t.mood_quote("mind"))
+    # print(t.mood_quote("body"))
+    # print(t.mood_quote("soul"))
 
     im = t.generate_image()
     im.show()
