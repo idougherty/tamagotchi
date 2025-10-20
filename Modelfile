@@ -1,4 +1,4 @@
-FROM hf.co/bartowski/Qwen_Qwen3-0.6B-GGUF:Q4_K_M
+FROM hf.co/unsloth/gemma-3-270m-it-GGUF:Q4_K_M
 PARAMETER num_ctx 256
 PARAMETER num_batch 64
 PARAMETER num_thread 2
