@@ -240,14 +240,6 @@
         "completed": false
     },
     {
-        "id": 32,
-        "message": "eat french toast",
-        "tag": "want_to_do",
-        "date_added": "2025-10-10T16:33:25.911521",
-        "date_completed": null,
-        "completed": false
-    },
-    {
         "id": 33,
         "message": "worked on tamagotchi (got it hosted on pi with e ink display)",
         "tag": "want_to_do",
@@ -276,16 +268,16 @@
         "message": "work on tamagotchi project (custom prompts for actions)",
         "tag": "want_to_do",
         "date_added": "2025-10-10T22:05:51.368477",
-        "date_completed": null,
-        "completed": false
+        "date_completed": "2025-10-19T19:56:02.031613",
+        "completed": true
     },
     {
         "id": 37,
         "message": "work on tamagotchi project (add queue for acknowledging completed tasks)",
         "tag": "want_to_do",
         "date_added": "2025-10-10T22:06:28.922929",
-        "date_completed": null,
-        "completed": false
+        "date_completed": "2025-10-19T19:50:12.386706",
+        "completed": true
     },
     {
         "id": 38,
@@ -525,6 +517,46 @@
         "tag": "want_to_do",
         "date_added": "2025-10-17T21:57:46.288201",
         "date_completed": "2025-10-17T22:01:26.308506",
+        "completed": true
+    },
+    {
+        "id": 69,
+        "message": "research extra grad funding",
+        "tag": "need_to_do",
+        "date_added": "2025-10-19T19:50:00.492901",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 70,
+        "message": "hang out at aunt dot's in the quad cities for dougherty family reuinion",
+        "tag": "want_to_do",
+        "date_added": "2025-10-19T19:55:55.487713",
+        "date_completed": "2025-10-19T19:55:57.804382",
+        "completed": true
+    },
+    {
+        "id": 71,
+        "message": "play hollow knight silksong",
+        "tag": "want_to_do",
+        "date_added": "2025-10-19T19:56:16.452486",
+        "date_completed": null,
+        "completed": false
+    },
+    {
+        "id": 72,
+        "message": "spend the night at tim & roseannes, chat on the patio and drink wine",
+        "tag": "want_to_do",
+        "date_added": "2025-10-19T19:57:04.813397",
+        "date_completed": "2025-10-19T19:57:07.850884",
+        "completed": true
+    },
+    {
+        "id": 73,
+        "message": "group breakfast at tim & roseannes with all of the doughertys",
+        "tag": "want_to_do",
+        "date_added": "2025-10-19T20:00:16.092756",
+        "date_completed": "2025-10-19T20:00:23.907301",
         "completed": true
     }
 ]
